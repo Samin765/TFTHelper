@@ -7,6 +7,24 @@
   pointer-events: none;
 }
 
+.Test {
+  background-color: #a6a7a8;
+
+}
+
+.Test2 {
+  background-color: #526272;
+
+}
+
+.ButtonFire {
+  background-color: aquamarine;
+}
+
+.avatar {
+  border-radius: 50%;
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
