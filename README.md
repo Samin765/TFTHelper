@@ -18,13 +18,11 @@ TFT Helper is a project designed to assist new players in learning about the var
    - Take interactive quizzes to practice and reinforce your understanding of character traits and item combinations.
 
 ## Getting Started
-To get started with TFT Helper:
-- Clone the repository to your local machine.
-- Install dependencies using `npm install`.
-- Launch the application using `npm start`.
+
+## IN DEVELOPMENT##
 
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
 ## License
-This project is licensed under the [MIT License](link-to-license).
+This project is licensed under the [MIT License](https://opensource.org/licenses/MIT).
