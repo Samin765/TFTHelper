@@ -2,108 +2,7 @@ import logo from './logo.svg';
 import './App.css';
 import {useState} from 'react';
 import { click } from '@testing-library/user-event/dist/click';
-
-function App() {
-  const [count, setCount] = useState(0);
-  function handleClick(){
-   // alert('You clicked me!' );
-    setCount(count + 1);
-  }
-  let content;
-  let isLoggedIn = true;
-  if (isLoggedIn) {
-    content = <Admin />;
-  } else {
-    content = <User />;
-  }
-
-  return (
-   <div className='Test'>
-    <h1>TFT Helper (TM)</h1>
-    <MyButton onClick={handleClick} count = {count}/ >
-
-    <ShowComponents></ShowComponents>
-    <AboutPage className ='Test2'></AboutPage>
-
-   </div>
-  
-  );
-}
-
-function MyButton({onClick, count}){
- 
-  return (
-    <button className='ButtonFire' onClick={onClick}> Issa button you clicked {count} times</button>
-  );
-}
-
-function AboutPage() {
-  return (
-    <div className='Test2'>
-      <h1>About</h1>
-      <p>Hello {userTest.name + ' ' + userTest.lastName} this issa about page</p>
-      <img className='avatar' src={userTest.imageUrl}></img>
-    </div>
-  );
-}
-
-function ShowComponents() {
-
-return (
-  <div className="grid-container">
-    {tftComponents.map(item => (
-      <div key={item.id} className="grid-item">
-        <img src={item.imageUrl} alt={item.title} />
-      </div>
-    ))}
-  </div>
-);
-}
-
-function ShowItems() {
-
-  return (
-    <div className="grid-container">
-      {champions.map(item => (
-        <div key={item.id} className="grid-item">
-          <img src={item.imageUrl} alt={item.title} />
-          <p>{item.title}</p>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-const userTest = {
-  name: 'User',
-  lastName: 'Chowdhury',
-  imageUrl: 'https://i.imgur.com/H3vo6s7.png',
-
-};
-
-const AdminTest = {
-  name: 'Admin',
-  lastName: 'Chowdhury',
-  imageUrl: 'https://i.imgur.com/qYr3vp8.png',
-
-};
-
-function Admin(){
-  return (
-    <div>
-      <img src = {AdminTest.imageUrl}></img>
-    </div>
-  );
-}
-
-
-function User(){
-  return (
-    <div>
-      <img src = {userTest.imageUrl}></img>
-    </div>
-  );
-}
+import React from 'react';
 
 
 const tftComponents = [
@@ -129,8 +28,8 @@ const tftCompletedItems = [
   {title: 'Dragon\'s Claw' , id: 6, imageUrl: 'https://rerollcdn.com/items/DragonsClaw.png', components: [5, 5]},
   {title: 'Edge of Night' , id: 7, imageUrl: 'https://rerollcdn.com/items/EdgeofNight.png', components: [1, 2]},
   {title: 'Evenshroud' , id: 8, imageUrl: 'https://rerollcdn.com/items/Evenshroud.png', components: [3, 5]},
-  {title: 'Gargoyle Stoneplate' , id: 9, imageUrl: 'https://rerollcdn.com/items/GargoyleStoneplate.png'},
-  {title: 'Giant Slayer' , id: 10, imageUrl: 'https://rerollcdn.com/items/GiantSlayer.png', components: [2, 5]},
+  {title: 'Gargoyle Stoneplate' , id: 9, imageUrl: 'https://rerollcdn.com/items/GargoyleStoneplate.png', components: [2, 5]},
+  {title: 'Giant Slayer' , id: 10, imageUrl: 'https://rerollcdn.com/items/GiantSlayer.png', components: [1, 6]},
   {title: 'Guardbreaker' , id: 11, imageUrl: 'https://rerollcdn.com/items/Guardbreaker.png',  components: [3, 7]},
   {title: 'Guinsoo\'s Rageblade' , id: 12, imageUrl: 'https://rerollcdn.com/items/GuinsoosRageblade.png', components: [6, 4]},
   {title: 'Hand of Justice' , id: 13, imageUrl: 'https://rerollcdn.com/items/HandofJustice.png', components: [9, 7]},
@@ -326,6 +225,125 @@ const champions = [
   {title: 'Zoe' , id: 165, imageUrl: 'https://rerollcdn.com/items/SteraksGage.png'},
   {title: 'Zyra' , id: 166, imageUrl: 'https://rerollcdn.com/characters/Skin/11/Zyra.png'},
 ];
+
+
+function App() {
+  
+  const [count, setCount] = useState(0);
+  function handleClick(){
+   // alert('You clicked me!' );
+    setCount(count + 1);
+  }
+  let content;
+  let isLoggedIn = true;
+  if (isLoggedIn) {
+    content = <Admin />;
+  } else {
+    content = <User />;
+  }
+
+  return (
+   <div className='App' >
+    <div className='background'></div>
+    <h1>TFT Helper (TM)</h1>
+    <MyButton onClick={handleClick} count = {count}/ >
+      <ShowItems></ShowItems>
+    <AboutPage></AboutPage>
+
+   </div>
+  
+  );
+}
+
+function MyButton({onClick, count}){
+ 
+  return (
+    <button className='ButtonFire' onClick={onClick}> Issa button you clicked {count} times</button>
+  );
+}
+
+function AboutPage() {
+  return (
+    <div className='about-container'>
+      <p> This is a summer project created by {userTest.name + ' ' + userTest.lastName}</p>
+      <p> Feel free to reach out to samin@3138@gmail.com for any suggestions or improvements</p>
+
+    </div>
+  );
+}
+
+function ShowComponents() {
+
+return (
+  <div className="grid-container">
+    {tftComponents.map(item => (
+      <div key={item.id} className="grid-item">
+        <img src={item.imageUrl} alt={item.title} />
+      </div>
+    ))}
+  </div>
+);
+}
+
+function ShowItems() {
+  return (
+    <div className="grid-container">
+      {tftCompletedItems.map(item => (
+        <div key={item.id} className="grid-item">
+          <img src={item.imageUrl} alt={item.title} />
+          <div className='component-container'> 
+            {item.components?.map(compId => {
+              const component = tftComponents.find(comp => comp.id === compId);
+              return (
+                <img
+                  key={compId}
+                  src={component.imageUrl}
+                  alt={component.title}
+                  title={component.title}
+                  className="component-image"
+                />
+              );
+            })}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Admin(){
+  return (
+    <div>
+      <img src = {AdminTest.imageUrl}></img>
+    </div>
+  );
+}
+
+
+function User(){
+  return (
+    <div>
+      <img src = {userTest.imageUrl}></img>
+    </div>
+  );
+}
+
+
+const userTest = {
+  name: 'Samin',
+  lastName: 'Chowdhury',
+  imageUrl: 'https://i.imgur.com/H3vo6s7.png',
+
+};
+
+const AdminTest = {
+  name: 'Admin',
+  lastName: 'Chowdhury',
+  imageUrl: 'https://i.imgur.com/qYr3vp8.png',
+
+};
+
+
 
 
 
