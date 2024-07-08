@@ -3,6 +3,10 @@ import './App.css';
 import {useState} from 'react';
 import { click } from '@testing-library/user-event/dist/click';
 import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import TraitsQuiz from './pages/TraitsQuiz';
+
+
 
 
 const tftComponents = [
@@ -243,12 +247,14 @@ function App() {
   }
 
   return (
+    
    <div className='App' >
     <div className='background'></div>
-    <h1>TFT Helper (TM)</h1>
+    <h1 className=''>TFT Helper (TM)</h1>
     <MyButton onClick={handleClick} count = {count}/ >
       <ShowItems></ShowItems>
     <AboutPage></AboutPage>
+   
 
    </div>
   
@@ -265,7 +271,7 @@ function MyButton({onClick, count}){
 function AboutPage() {
   return (
     <div className='about-container'>
-      <p> This is a summer project created by {userTest.name + ' ' + userTest.lastName}</p>
+      <p> This is a summer project created by <a href='https://github.com/Samin765' target='_blank' rel='noopener noreferrer'>{userTest.name + ' ' + userTest.lastName}</a></p>
       <p> Feel free to reach out to samin@3138@gmail.com for any suggestions or improvements</p>
 
     </div>
@@ -290,7 +296,7 @@ function ShowItems() {
     <div className="grid-container">
       {tftCompletedItems.map(item => (
         <div key={item.id} className="grid-item">
-          <img src={item.imageUrl} alt={item.title} />
+          <img src={item.imageUrl} alt={item.title} title={item.title} className='item-image'/>
           <div className='component-container'> 
             {item.components?.map(compId => {
               const component = tftComponents.find(comp => comp.id === compId);

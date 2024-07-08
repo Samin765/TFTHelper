@@ -81,12 +81,18 @@
 
 .grid-container {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 items per row */
+  grid-template-columns: repeat(6, 1fr); /* 4 items per row */
   gap: 0px; /* Adjust gap between items */
+
 }
 
 .grid-item {
   text-align: center; /* Center align content */
+  
+}
+
+.item-image {
+  cursor: pointer;
 }
 
 .component-container {
@@ -102,7 +108,7 @@
 
 /* AboutPage component styles */
 .about-container {
-  background-color: rgba(0, 0, 0, 0.6); /* Dark background */
+  background-color: rgba(0, 0, 0, 0.4); /* Dark background */
   color: white; /* Light text color for contrast */
   padding: 20px;
   border-radius: 8px;
@@ -120,6 +126,15 @@
   font-size: 1rem;
   line-height: 1.5;
   margin: 10px 0;
+}
+
+.about-container a {
+  color: #a3c93c; /* DodgerBlue color for the link */
+  text-decoration: none; /* Remove underline */
+}
+
+.about-container a:hover {
+  text-decoration: underline; /* Underline on hover */
 }
 
 
