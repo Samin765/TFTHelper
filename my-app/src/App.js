@@ -250,9 +250,15 @@ function App() {
     
    <div className='App' >
     <div className='background'></div>
-    <h1 className=''>TFT Helper (TM)</h1>
+    <h1 className=''>ITEMS</h1>
     <MyButton onClick={handleClick} count = {count}/ >
-      <ShowItems></ShowItems>
+    <ShowItems className="spaced-component" />
+    <AboutPage></AboutPage>
+
+    <hr className='divider'></hr>
+    <h1 className=''>CHAMPIONS</h1>
+
+    <ShowChampions />
     <AboutPage></AboutPage>
    
 
@@ -271,7 +277,8 @@ function MyButton({onClick, count}){
 function AboutPage() {
   return (
     <div className='about-container'>
-      <p> This is a summer project created by <a href='https://github.com/Samin765' target='_blank' rel='noopener noreferrer'>{userTest.name + ' ' + userTest.lastName}</a></p>
+      <h1>UNDER DEVELOPMENT</h1>
+      <p> TFTHelper is a summer project created by <a href='https://github.com/Samin765' target='_blank' rel='noopener noreferrer'>{userTest.name + ' ' + userTest.lastName}</a></p>
       <p> Feel free to reach out to samin@3138@gmail.com for any suggestions or improvements</p>
 
     </div>
@@ -291,28 +298,57 @@ return (
 );
 }
 
-function ShowItems() {
-  return (
+function ShowChampions({className}) {
+
+return (
+  <div className={className}>
     <div className="grid-container">
-      {tftCompletedItems.map(item => (
+      {champions.slice(0,160).map(item => (
         <div key={item.id} className="grid-item">
-          <img src={item.imageUrl} alt={item.title} title={item.title} className='item-image'/>
-          <div className='component-container'> 
-            {item.components?.map(compId => {
-              const component = tftComponents.find(comp => comp.id === compId);
-              return (
-                <img
-                  key={compId}
-                  src={component.imageUrl}
-                  alt={component.title}
-                  title={component.title}
-                  className="component-image"
-                />
-              );
-            })}
-          </div>
+                      <div className="tooltip-container">
+
+          <img src={item.imageUrl} alt={item.title} className='champion-image'/>
+          <div className="tooltip">{item.title}</div>
+        </div>
         </div>
       ))}
+    </div>
+  </div>
+);
+}
+
+function ShowItems({ className }) {
+  return (
+    <div className={className}>
+      <div className="grid-container">
+        {tftCompletedItems.map(item => (
+          <div key={item.id} className="grid-item">
+            <div className="tooltip-container">
+              <img
+                src={item.imageUrl}
+                alt={item.title}
+                className="item-image"
+              />
+              <div className="tooltip">{item.title}</div>
+            </div>
+            <div className='component-container'>
+              {item.components?.map(compId => {
+                const component = tftComponents.find(comp => comp.id === compId);
+                return (
+                  <div key={compId} className="tooltip-container">
+                    <img
+                      src={component.imageUrl}
+                      alt={component.title}
+                      className="component-image"
+                    />
+                    <div className="tooltip">{component.title}</div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 }

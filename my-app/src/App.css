@@ -18,11 +18,74 @@
 }
 
 .ButtonFire {
-  background-color: aquamarine;
+  background-color: #1abc9c; /* Changed to a more professional shade of green */
+  color: white; /* Text color */
+  padding: 10px 20px; /* Padding for a better size */
+  border: none; /* Remove default border */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  text-transform: uppercase; /* Uppercase text */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+}
+
+.ButtonFire:hover {
+  background-color: #16a085; /* Darker shade on hover */
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.ButtonFire:active {
+  background-color: #148f77; /* Even darker shade when active */
+  transform: translateY(0); /* Remove lift on active */
+}
+
+.ButtonFire:focus {
+  outline: none; /* Remove default focus outline */
+  box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.5); /* Custom focus outline */
 }
 
 .avatar {
   border-radius: 50%;
+}
+
+.tooltip-container {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltip {
+  visibility: hidden;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 107%; /* Position above the image */
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+  width: 120px;
+}
+
+.tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%; /* Bottom of the tooltip */
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: black transparent transparent transparent;
+}
+
+.tooltip-container:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -45,6 +108,7 @@
 .App-link {
   color: #61dafb;
 }
+
 
 @keyframes App-logo-spin {
   from {
@@ -79,6 +143,17 @@
   z-index: -1; /* Ensure this stays behind the content */
 }
 
+.spaced-component {
+  margin-bottom: 50px; /* Adjust the value as needed */
+}
+
+.divider {
+  height: 2px; /* Adjust the height as needed */
+  background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+  margin: 50px 0; /* Adjust the margin as needed */
+  border: none;
+}
+
 .grid-container {
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* 4 items per row */
@@ -95,6 +170,10 @@
   cursor: pointer;
 }
 
+.item-image:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
 .component-container {
   justify-content: center;
   margin-top: 0px;
@@ -104,6 +183,18 @@
   width: 48px; /* Adjust the size as needed */
   height: 48px;
   cursor: pointer;
+}
+
+.component-image:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+}
+
+.champion-image {
+  cursor: pointer;
+}
+
+.champion-image:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
 }
 
 /* AboutPage component styles */
