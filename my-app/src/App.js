@@ -21,10 +21,10 @@ function App() {
    <div className='Test'>
     <h1>TFT Helper (TM)</h1>
     <MyButton onClick={handleClick} count = {count}/ >
-    <MyButton onClick={handleClick} count = {count}/>
 
+    <ShowComponents></ShowComponents>
     <AboutPage className ='Test2'></AboutPage>
-    <ShowItems2></ShowItems2>
+
    </div>
   
   );
@@ -47,20 +47,20 @@ function AboutPage() {
   );
 }
 
-function ShowItems(){
-  const itemList = tftComponents.map(item =>
-  (<li
-    key = {item.id}
-    ><img src = {item.imageUrl}></img>
-    <p>{item.title}</p>
-    </li>
-  ));
-  return (
-    <ul>{itemList}</ul>
-  );
+function ShowComponents() {
+
+return (
+  <div className="grid-container">
+    {tftComponents.map(item => (
+      <div key={item.id} className="grid-item">
+        <img src={item.imageUrl} alt={item.title} />
+      </div>
+    ))}
+  </div>
+);
 }
 
-function ShowItems2() {
+function ShowItems() {
 
   return (
     <div className="grid-container">
@@ -120,42 +120,42 @@ const tftComponents = [
 
 
 const tftCompletedItems = [
-  {title: 'Archangel\'s Staff' , id: 1, imageUrl: 'https://rerollcdn.com/items/ArchangelsStaff.png'},
-  {title: 'Bloodthirster' , id: 1, imageUrl: 'https://rerollcdn.com/items/Bloodthirster.png'},
-  {title: 'Blue Buff' , id: 2, imageUrl: 'https://rerollcdn.com/items/BlueBuff.png'},
-  {title: 'Bramble Vest' , id: 3, imageUrl: 'https://rerollcdn.com/items/BrambleVest.png'},
-  {title: 'Crownguard' , id: 4, imageUrl: 'https://rerollcdn.com/items/Crownguard.png'},
-  {title: 'Deathblade' , id: 5, imageUrl: 'https://rerollcdn.com/items/Deathblade.png'},
-  {title: 'Dragon\'s Claw' , id: 6, imageUrl: 'https://rerollcdn.com/items/DragonsClaw.png'},
-  {title: 'Edge of Night' , id: 7, imageUrl: 'https://rerollcdn.com/items/EdgeofNight.png'},
-  {title: 'Evenshroud' , id: 8, imageUrl: 'https://rerollcdn.com/items/Evenshroud.png'},
+  {title: 'Archangel\'s Staff' , id: 1, imageUrl: 'https://rerollcdn.com/items/ArchangelsStaff.png', components: [4, 9]},
+  {title: 'Bloodthirster' , id: 1, imageUrl: 'https://rerollcdn.com/items/Bloodthirster.png', components: [1, 5]},
+  {title: 'Blue Buff' , id: 2, imageUrl: 'https://rerollcdn.com/items/BlueBuff.png', components: [9, 9]},
+  {title: 'Bramble Vest' , id: 3, imageUrl: 'https://rerollcdn.com/items/BrambleVest.png', components: [2, 2]},
+  {title: 'Crownguard' , id: 4, imageUrl: 'https://rerollcdn.com/items/Crownguard.png', components: [2, 4]},
+  {title: 'Deathblade' , id: 5, imageUrl: 'https://rerollcdn.com/items/Deathblade.png', components: [1, 1]},
+  {title: 'Dragon\'s Claw' , id: 6, imageUrl: 'https://rerollcdn.com/items/DragonsClaw.png', components: [5, 5]},
+  {title: 'Edge of Night' , id: 7, imageUrl: 'https://rerollcdn.com/items/EdgeofNight.png', components: [1, 2]},
+  {title: 'Evenshroud' , id: 8, imageUrl: 'https://rerollcdn.com/items/Evenshroud.png', components: [3, 5]},
   {title: 'Gargoyle Stoneplate' , id: 9, imageUrl: 'https://rerollcdn.com/items/GargoyleStoneplate.png'},
-  {title: 'Giant Slayer' , id: 10, imageUrl: 'https://rerollcdn.com/items/GiantSlayer.png'},
-  {title: 'Guardbreaker' , id: 11, imageUrl: 'https://rerollcdn.com/items/Guardbreaker.png'},
-  {title: 'Guinsoo\'s Rageblade' , id: 12, imageUrl: 'https://rerollcdn.com/items/GuinsoosRageblade.png'},
-  {title: 'Hand of Justice' , id: 13, imageUrl: 'https://rerollcdn.com/items/HandofJustice.png'},
-  {title: 'Hextech Gunblade' , id: 14, imageUrl: 'https://rerollcdn.com/items/HextechGunblade.png'},
-  {title: 'Infinity Edge' , id: 15, imageUrl: 'https://rerollcdn.com/items/InfinityEdge.png'},
-  {title: 'Ionic Spark' , id: 16, imageUrl: 'https://rerollcdn.com/items/IonicSpark.png'},
-  {title: 'Jeweled Gauntlet' , id: 17, imageUrl: 'https://rerollcdn.com/items/JeweledGauntlet.png'},
-  {title: 'Last Whisper' , id: 18, imageUrl: 'https://rerollcdn.com/items/LastWhisper.png'},
-  {title: 'Morellonomicon' , id: 19, imageUrl: 'https://rerollcdn.com/items/Morellonomicon.png'},
-  {title: 'Nashoor\'s Tooth' , id: 20, imageUrl: 'https://rerollcdn.com/items/NashorsTooth.png'},
-  {title: 'Protector\'s Vow' , id: 21, imageUrl: 'https://rerollcdn.com/items/ProtectorsVow.png'},
-  {title: 'Quicksilver' , id: 22, imageUrl: 'https://rerollcdn.com/items/Quicksilver.png'},
-  {title: 'Rabadon\'s Deathcap' , id: 23, imageUrl: 'https://rerollcdn.com/items/RabadonsDeathcap.png'},
-  {title: 'Red Buff' , id: 24, imageUrl: 'https://rerollcdn.com/items/RedBuff.png'},
-  {title: 'Redemption' , id: 25, imageUrl: 'https://rerollcdn.com/items/Redemption.png'},
-  {title: 'Runaan\'s Hurricane' , id: 26, imageUrl: 'https://rerollcdn.com/items/RunaansHurricane.png'},
-  {title: 'Spear of Shojin' , id: 27, imageUrl: 'https://rerollcdn.com/items/SpearofShojin.png'},
-  {title: 'Statikk Shiv' , id: 28, imageUrl: 'https://rerollcdn.com/items/StatikkShiv.png'},
-  {title: 'Steadfast Heart' , id: 29, imageUrl: 'https://rerollcdn.com/items/SteadfastHeart.png'},
-  {title: 'Sterak\'s Gage' , id: 30, imageUrl: 'https://rerollcdn.com/items/SteraksGage.png'},
-  {title: 'Sunfire Cape' , id: 31, imageUrl: 'https://rerollcdn.com/items/SunfireCape.png'},
-  {title: 'Tactician\'s Crown' , id: 32, imageUrl: 'https://rerollcdn.com/items/TacticiansCrown.png'},
-  {title: 'Thief\'s Gloves' , id: 33, imageUrl: 'https://rerollcdn.com/items/ThiefsGloves.png'},
-  {title: 'Titan\'s Resolve' , id: 34, imageUrl: 'https://rerollcdn.com/items/TitansResolve.png'},
-  {title: 'Warmog\'s Armor' , id: 35, imageUrl: 'https://rerollcdn.com/items/WarmogsArmor.png'},
+  {title: 'Giant Slayer' , id: 10, imageUrl: 'https://rerollcdn.com/items/GiantSlayer.png', components: [2, 5]},
+  {title: 'Guardbreaker' , id: 11, imageUrl: 'https://rerollcdn.com/items/Guardbreaker.png',  components: [3, 7]},
+  {title: 'Guinsoo\'s Rageblade' , id: 12, imageUrl: 'https://rerollcdn.com/items/GuinsoosRageblade.png', components: [6, 4]},
+  {title: 'Hand of Justice' , id: 13, imageUrl: 'https://rerollcdn.com/items/HandofJustice.png', components: [9, 7]},
+  {title: 'Hextech Gunblade' , id: 14, imageUrl: 'https://rerollcdn.com/items/HextechGunblade.png', components: [1, 4]},
+  {title: 'Infinity Edge' , id: 15, imageUrl: 'https://rerollcdn.com/items/InfinityEdge.png', components: [1, 7]},
+  {title: 'Ionic Spark' , id: 16, imageUrl: 'https://rerollcdn.com/items/IonicSpark.png', components: [4, 5]},
+  {title: 'Jeweled Gauntlet' , id: 17, imageUrl: 'https://rerollcdn.com/items/JeweledGauntlet.png', components: [4, 7]},
+  {title: 'Last Whisper' , id: 18, imageUrl: 'https://rerollcdn.com/items/LastWhisper.png', components: [6, 7]},
+  {title: 'Morellonomicon' , id: 19, imageUrl: 'https://rerollcdn.com/items/Morellonomicon.png', components: [4, 3]},
+  {title: 'Nashoor\'s Tooth' , id: 20, imageUrl: 'https://rerollcdn.com/items/NashorsTooth.png', components: [3, 6]},
+  {title: 'Protector\'s Vow' , id: 21, imageUrl: 'https://rerollcdn.com/items/ProtectorsVow.png', components: [2, 9]},
+  {title: 'Quicksilver' , id: 22, imageUrl: 'https://rerollcdn.com/items/Quicksilver.png', components: [5, 7]},
+  {title: 'Rabadon\'s Deathcap' , id: 23, imageUrl: 'https://rerollcdn.com/items/RabadonsDeathcap.png', components: [4, 4]},
+  {title: 'Red Buff' , id: 24, imageUrl: 'https://rerollcdn.com/items/RedBuff.png', components: [6, 6]},
+  {title: 'Redemption' , id: 25, imageUrl: 'https://rerollcdn.com/items/Redemption.png', components: [3, 9]},
+  {title: 'Runaan\'s Hurricane' , id: 26, imageUrl: 'https://rerollcdn.com/items/RunaansHurricane.png', components: [5, 6]},
+  {title: 'Spear of Shojin' , id: 27, imageUrl: 'https://rerollcdn.com/items/SpearofShojin.png', components: [1, 9]},
+  {title: 'Statikk Shiv' , id: 28, imageUrl: 'https://rerollcdn.com/items/StatikkShiv.png', components: [6, 9]},
+  {title: 'Steadfast Heart' , id: 29, imageUrl: 'https://rerollcdn.com/items/SteadfastHeart.png', components: [2, 7]},
+  {title: 'Sterak\'s Gage' , id: 30, imageUrl: 'https://rerollcdn.com/items/SteraksGage.png', components: [1, 3]},
+  {title: 'Sunfire Cape' , id: 31, imageUrl: 'https://rerollcdn.com/items/SunfireCape.png', components: [2, 3]},
+  {title: 'Tactician\'s Crown' , id: 32, imageUrl: 'https://rerollcdn.com/items/TacticiansCrown.png', components: [8, 8]},
+  {title: 'Thief\'s Gloves' , id: 33, imageUrl: 'https://rerollcdn.com/items/ThiefsGloves.png', components: [7, 7]},
+  {title: 'Titan\'s Resolve' , id: 34, imageUrl: 'https://rerollcdn.com/items/TitansResolve.png', components: [2, 6]},
+  {title: 'Warmog\'s Armor' , id: 35, imageUrl: 'https://rerollcdn.com/items/WarmogsArmor.png', components: [3, 3]},
 ];
 
 const champions = [

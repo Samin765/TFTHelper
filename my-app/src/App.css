@@ -58,7 +58,7 @@
 .grid-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr); /* 4 items per row */
-  gap: 20px; /* Adjust gap between items */
+  gap: 0px; /* Adjust gap between items */
 }
 
 .grid-item {
