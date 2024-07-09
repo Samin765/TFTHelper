@@ -20,7 +20,7 @@ TFT Helper is a project designed to assist new players in learning about the var
 ## Getting Started
 
 ## IN DEVELOPMENT##
-
+Demo site can be accessed via https://samin765.github.io/TFTHelper/
 ## Contributing
 Contributions are welcome! If you find any issues or have suggestions for improvements, feel free to open an issue or submit a pull request.
 
