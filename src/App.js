@@ -277,7 +277,7 @@ function AboutPage() {
   return (
     <div className='about-container'>
       <h1>UNDER DEVELOPMENT</h1>
-      <p> TFTHelper is a summer project created by <a href='https://github.com/Samin765' target='_blank' rel='noopener noreferrer'>{userTest.name + ' ' + userTest.lastName}</a></p>
+      <p> TFTHelper is a summer project created by <a href='https://github.com/Samin765' target='_blank' rel='noopener noreferrer'>{userTest.name}</a></p>
       <p> Feel free to reach out to samin@3138@gmail.com for any suggestions or improvements</p>
 
     </div>
