@@ -1,16 +1,16 @@
 {
   "files": {
-    "main.css": "/static/css/main.5f53424a.css",
-    "main.js": "/static/js/main.de9192bb.js",
-    "static/js/453.68693753.chunk.js": "/static/js/453.68693753.chunk.js",
-    "static/media/logo.svg": "/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/index.html",
-    "main.5f53424a.css.map": "/static/css/main.5f53424a.css.map",
-    "main.de9192bb.js.map": "/static/js/main.de9192bb.js.map",
-    "453.68693753.chunk.js.map": "/static/js/453.68693753.chunk.js.map"
+    "main.css": "/TFTHelper/static/css/main.5f53424a.css",
+    "main.js": "/TFTHelper/static/js/main.a7c374ec.js",
+    "static/js/453.68693753.chunk.js": "/TFTHelper/static/js/453.68693753.chunk.js",
+    "static/media/logo.svg": "/TFTHelper/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/TFTHelper/index.html",
+    "main.5f53424a.css.map": "/TFTHelper/static/css/main.5f53424a.css.map",
+    "main.a7c374ec.js.map": "/TFTHelper/static/js/main.a7c374ec.js.map",
+    "453.68693753.chunk.js.map": "/TFTHelper/static/js/453.68693753.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5f53424a.css",
-    "static/js/main.de9192bb.js"
+    "static/js/main.a7c374ec.js"
   ]
 }
