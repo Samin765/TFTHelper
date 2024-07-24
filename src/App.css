@@ -197,6 +197,11 @@
   transform: translateY(-2px); /* Slight lift on hover */
 }
 
+.quiz-champion-image {
+  cursor: pointer;
+  padding: 50px;
+}
+
 /* AboutPage component styles */
 .about-container {
   background-color: rgba(0, 0, 0, 0.4); /* Dark background */
