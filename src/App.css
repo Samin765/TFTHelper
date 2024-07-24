@@ -1,5 +1,29 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Bellefair&family=PT+Sans+Narrow:wght@400;700&display=swap');
+.pt-sans-narrow-regular {
+  font-family: "PT Sans Narrow", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bellefair-regular {
+  font-family: "Bellefair", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.pt-sans-narrow-bold {
+  font-family: "PT Sans Narrow", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
 .App {
   text-align: center;
+  padding-top: 50px; /* Adjust this value as needed */
+
 }
 
 .App-logo {
@@ -18,7 +42,7 @@
 }
 
 .ButtonFire {
-  background-color: #1abc9c; /* Changed to a more professional shade of green */
+  background-color: transparent; /* Changed to a more professional shade of green */
   color: white; /* Text color */
   padding: 10px 20px; /* Padding for a better size */
   border: none; /* Remove default border */
@@ -32,12 +56,12 @@
 }
 
 .ButtonFire:hover {
-  background-color: #16a085; /* Darker shade on hover */
+  background-color: transparent; /* Darker shade on hover */
   transform: translateY(-2px); /* Slight lift on hover */
 }
 
 .ButtonFire:active {
-  background-color: #148f77; /* Even darker shade when active */
+  background-color: transparent; /* Even darker shade when active */
   transform: translateY(0); /* Remove lift on active */
 }
 
@@ -125,10 +149,10 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-image: url('https://static0.gamerantimages.com/wordpress/wp-content/uploads/2021/12/Teamfight-Tactics-Pro-Tips-League-of-Legends-Guide.jpg');
+  background-image: url('https://cdn.oneesports.gg/cdn-data/2024/07/TeamfightTactics_Set12_MagicandMayhem_KeyVisual.jpg');
   background-size: cover;
   background-position: center;
-  filter: blur(10px);
+  filter: blur(13px);
   z-index: -1;
 }
 
@@ -158,12 +182,28 @@
   display: grid;
   grid-template-columns: repeat(6, 1fr); /* 4 items per row */
   gap: 0px; /* Adjust gap between items */
+  
 
 }
 
 .grid-item {
   text-align: center; /* Center align content */
   
+  
+}
+
+.grid-quiz-item {
+  text-align: center;
+  cursor: pointer;
+  display:grid;
+  margin-left: 150px;
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
+
+}
+
+.grid-quiz-item:hover{
+  transform: translateY(-2px); /* Slight lift on hover */
+
 }
 
 .item-image {
@@ -183,6 +223,17 @@
   width: 48px; /* Adjust the size as needed */
   height: 48px;
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
+  
+
+}
+
+.component-quiz-image {
+  width: 48px; /* Adjust the size as needed */
+  height: 48px;
+  cursor: pointer;
+  
+
 }
 
 .component-image:hover {
@@ -191,15 +242,52 @@
 
 .champion-image {
   cursor: pointer;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
+
 }
 
 .champion-image:hover {
   transform: translateY(-2px); /* Slight lift on hover */
 }
 
-.quiz-champion-image {
+.quiz-champion-image-container {
   cursor: pointer;
   padding: 50px;
+  overflow: hidden; /* Prevents the image from overflowing the container */
+
+}
+
+.quiz-champion-image {
+  cursor: pointer;
+  transform: scale(1.5); /* Scale the image by 150% */
+  transition: transform 0.3s ease; /* Optional: Smooth transition */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
+
+}
+
+.quiz-champion-image:hover {
+  transform: scale(1.2) translateY(-1px); /* Apply a slight lift on hover */
+
+}
+
+.quiz-trait-image{
+  cursor: pointer;
+}
+
+
+
+.trait-text {
+  display: flex;
+  color: black;
+  margin: 0; /* Remove default margins */
+  font-size: 20px; /* Adjust font size as needed */
+      font-weight: 600;
+}
+
+.trait-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
 }
 
 /* AboutPage component styles */
