@@ -1437,7 +1437,7 @@ function App() {
       <ShowTraits />
       <hr className="divider"></hr>
 
-      <h1 className="">CHAMPIONS [SET 12]</h1>
+      <h1 className="kanitfont">CHEAT SHEET</h1>
       <ShowChampions />
 
       <AboutPage></AboutPage>
@@ -1445,14 +1445,6 @@ function App() {
   );
 }
 
-function MyButton({ onClick, count }) {
-  return (
-    <button className="ButtonFire" onClick={onClick}>
-      {" "}
-      Issa button you clicked {count} times
-    </button>
-  );
-}
 
 function AboutPage() {
   return (
@@ -1497,14 +1489,15 @@ function Quiz({ className }) {
           .slice(randomChampion, randomChampion + 1)
           .map((item) => (
             <div key={item.id} className="quiz-champion-image-container">
-              <div className="tooltip-container">
+                                    <div className="quiz-trait-item">
+
                 <img
                   src={item.imageUrl}
                   alt={item.title}
-                  className="champion-image"
+                  className="quiz-champion-image"
                 />
-                <div className="tooltip">{item.title}</div>
-              </div>
+                <p className="quiz-champion-name">{item.title} </p>
+            </div>
             </div>
           ))}
       </div>

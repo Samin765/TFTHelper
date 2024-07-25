@@ -1,6 +1,7 @@
 
 
 @import url('https://fonts.googleapis.com/css2?family=Bellefair&family=PT+Sans+Narrow:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 .pt-sans-narrow-regular {
   font-family: "PT Sans Narrow", sans-serif;
   font-weight: 400;
@@ -19,6 +20,115 @@
   font-weight: 700;
   font-style: normal;
 }
+
+.kanit-thin {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.kanit-extralight {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: normal;
+}
+
+.kanit-light {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+
+.kanit-regular {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.kanit-medium {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.kanit-semibold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.kanit-bold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.kanit-extrabold {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+}
+
+.kanit-black {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: normal;
+}
+
+.kanit-thin-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 100;
+  font-style: italic;
+}
+
+.kanit-extralight-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 200;
+  font-style: italic;
+}
+
+.kanit-light-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 300;
+  font-style: italic;
+}
+
+.kanit-regular-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.kanit-medium-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.kanit-semibold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.kanit-bold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.kanit-extrabold-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.kanit-black-italic {
+  font-family: "Kanit", sans-serif;
+  font-weight: 900;
+  font-style: italic;
+}
+
 
 .App {
   text-align: center;
@@ -41,6 +151,10 @@
 
 }
 
+.kanitfont{
+  font-family: kanit;
+}
+
 .ButtonFire {
   background-color: transparent; /* Changed to a more professional shade of green */
   color: white; /* Text color */
@@ -53,6 +167,8 @@
   text-transform: uppercase; /* Uppercase text */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
   transition: background-color 0.3s, transform 0.3s; /* Smooth transitions */
+  font-family: kanit;
+  font-size: 29px;
 }
 
 .ButtonFire:hover {
@@ -67,7 +183,7 @@
 
 .ButtonFire:focus {
   outline: none; /* Remove default focus outline */
-  box-shadow: 0 0 0 3px rgba(26, 188, 156, 0.5); /* Custom focus outline */
+  box-shadow: 0 0 0 3px rgba(206, 209, 209, 0.5); /* Custom focus outline */
 }
 
 .avatar {
@@ -257,16 +373,21 @@
 
 }
 
+
 .quiz-champion-image {
   cursor: pointer;
-  transform: scale(1.5); /* Scale the image by 150% */
   transition: transform 0.3s ease; /* Optional: Smooth transition */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
+  display:flex;
 
 }
 
+.quiz-champion-image-text{
+  display:flex;
+}
+
 .quiz-champion-image:hover {
-  transform: scale(1.2) translateY(-1px); /* Apply a slight lift on hover */
+  transform:  translateY(-2px); /* Apply a slight lift on hover */
 
 }
 
@@ -282,12 +403,30 @@
   margin: 0; /* Remove default margins */
   font-size: 20px; /* Adjust font size as needed */
       font-weight: 600;
+      font-family: kanit;
 }
 
 .trait-item {
   display: flex;
   align-items: center;
   padding: 10px;
+}
+
+.quiz-trait-item{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: center;
+}
+
+.quiz-champion-name{
+  display: flex;
+  color: black;
+  margin-left: 10px; /* Remove default margins */
+  font-size: 45px; /* Adjust font size as needed */
+      font-weight: 600;
+      font-family: kanit;
 }
 
 /* AboutPage component styles */
