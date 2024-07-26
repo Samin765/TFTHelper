@@ -5,6 +5,8 @@ import { click } from "@testing-library/user-event/dist/click";
 import React from "react";
 import TraitsQuiz from "./pages/TraitsQuiz";
 import _ from 'lodash';
+import { useEffect } from 'react';
+
 
 
 const tftComponents = [
@@ -1426,6 +1428,7 @@ function App() {
 
   const [selectedChampions, setSelectedChampion] = useState([]);
 
+  const [height, setHeight] = useState('1%'); // Start with 0% height
 
 
 
@@ -1440,6 +1443,15 @@ function App() {
     // alert('You clicked me!' );
     setCount(count + 1);
   }
+  let progress = document.getElementById('progressbar');
+  let totalHeigth = document.body.scrollHeight - window.innerHeight;
+  window.onscroll = function(){
+    let scrolledHeight = (window.scrollY / totalHeigth) * 100;
+
+    setHeight(`${scrolledHeight}%`);
+
+  }
+
   let content;
   let isLoggedIn = true;
   if (isLoggedIn) {
@@ -1451,6 +1463,9 @@ function App() {
   return (
     <div className="App">
       <div className="background"></div>
+      <div className="progressbar"
+      style={{ height: height }}></div>
+      <div className="scrollPath"></div>
 
       <Quiz 
         randomChampion={randomChampion}
@@ -1473,6 +1488,27 @@ function App() {
     </div>
   );
 }
+
+function ProgressBar () {
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const totalHeight = document.body.scrollHeight - window.innerHeight;
+      const scrolledHeight = (window.pageYOffset / totalHeight) * 100;
+      setProgress(scrolledHeight);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    // Clean up the event listener on component unmount
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  return (
+    <div className="progress-bar" style={{ height: `${progress}%` }}></div>
+  );
+};
 
 
 function AboutPage() {
@@ -1499,10 +1535,26 @@ function AboutPage() {
   );
 }
 
-function Quiz({ className, randomChampion, generateRandomNumber ,  setSelectedChampion , selectedChampions}) {
+function Quiz({
+  className,
+  randomChampion,
+  generateRandomNumber,
+  setSelectedChampion,
+  selectedChampions,
+}) {
+  const currentChampion = activeChampions[randomChampion];
+  const list1 = currentChampion.traits;
+
+  const correctTraits = _.intersection(list1, selectedChampions);
+  const numberOfCorrectTraits = correctTraits.length;
+  const totalTraits = list1.length;
+
+  const percentageCorrect =
+    totalTraits > 0 ? (numberOfCorrectTraits / totalTraits) * 100 : 0;
 
   return (
     <div className={className}>
+      <h1>{numberOfCorrectTraits}</h1>
       <button className=" ButtonFire" onClick={generateRandomNumber}>
         Get Random Champion
       </button>
@@ -1511,15 +1563,21 @@ function Quiz({ className, randomChampion, generateRandomNumber ,  setSelectedCh
           .slice(randomChampion, randomChampion + 1)
           .map((item) => (
             <div key={item.id} className="quiz-champion-image-container">
-                                    <div className="quiz-trait-item">
-
-                <img
-                  src={item.imageUrl}
-                  alt={item.title}
-                  className="quiz-champion-image"
-                />
+              <div className="quiz-trait-item">
+              <div
+                  className="quiz-champion-image-wrapper"
+                  style={{ 
+                    '--percentage-correct': `${percentageCorrect}%` 
+                  }}
+                >
+                  <img
+                    src={item.imageUrl}
+                    alt={item.title}
+                    className="quiz-champion-image"
+                  />
+                </div>
                 <p className="quiz-champion-name">{item.title} </p>
-            </div>
+              </div>
             </div>
           ))}
       </div>
