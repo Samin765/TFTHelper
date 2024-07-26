@@ -322,6 +322,16 @@
 
 }
 
+.grid-quiz-item-selected{
+  text-align: center;
+  cursor: pointer;
+  display:grid;
+  margin-left: 150px;
+  box-shadow: 0 0px 1px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
+  background-color: green;
+
+}
+
 .item-image {
   cursor: pointer;
 }
@@ -410,6 +420,13 @@
   display: flex;
   align-items: center;
   padding: 10px;
+}
+
+.trait-item-selected {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 2.97); /* Subtle shadow for depth */
 }
 
 .quiz-trait-item{

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { click } from "@testing-library/user-event/dist/click";
 import React from "react";
 import TraitsQuiz from "./pages/TraitsQuiz";
+import _ from 'lodash';
+
 
 const tftComponents = [
   {
@@ -1417,6 +1419,23 @@ activeChampions.forEach((champion) => {
 
 function App() {
   const [count, setCount] = useState(0);
+
+  const number = Math.floor(Math.random() * activeChampions.length);
+
+  const [randomChampion, setRandomChampion] = useState(number);
+
+  const [selectedChampions, setSelectedChampion] = useState([]);
+
+
+
+
+  const generateRandomNumber = () => {
+    const number = Math.floor(Math.random() * activeChampions.length);
+    setRandomChampion(number);
+    setCount(count +1);
+    setSelectedChampion([]);
+  };
+
   function handleClick() {
     // alert('You clicked me!' );
     setCount(count + 1);
@@ -1433,8 +1452,18 @@ function App() {
     <div className="App">
       <div className="background"></div>
 
-      <Quiz />
-      <ShowTraits />
+      <Quiz 
+        randomChampion={randomChampion}
+        generateRandomNumber={generateRandomNumber}  
+        selectedChampions={selectedChampions}
+        setSelectedChampion = {setSelectedChampion}
+      />
+      <ShowTraits
+      randomChampion={randomChampion}
+      generateRandomNumber={generateRandomNumber}
+      selectedChampions={selectedChampions}
+      setSelectedChampion = {setSelectedChampion}
+      />
       <hr className="divider"></hr>
 
       <h1 className="kanitfont">CHEAT SHEET</h1>
@@ -1470,15 +1499,8 @@ function AboutPage() {
   );
 }
 
-function Quiz({ className }) {
-  const number = Math.floor(Math.random() * activeChampions.length);
+function Quiz({ className, randomChampion, generateRandomNumber ,  setSelectedChampion , selectedChampions}) {
 
-  const [randomChampion, setRandomChampion] = useState(number);
-
-  const generateRandomNumber = () => {
-    const number = Math.floor(Math.random() * activeChampions.length);
-    setRandomChampion(number);
-  };
   return (
     <div className={className}>
       <button className=" ButtonFire" onClick={generateRandomNumber}>
@@ -1517,27 +1539,61 @@ function ShowComponents() {
   );
 }
 
-function ShowTraits() {
-  return (
-    <div className="grid-container">
-      
-      {set12Traits.map((item) => (
-        <div key={item.id} className="grid-quiz-item">
-                      <div className="trait-item">
+function ShowTraits({randomChampion , generateRandomNumber, setSelectedChampion , selectedChampions }) {
+ 
+  const currentChampion = activeChampions[randomChampion];
+  const list1 = currentChampion.traits;
 
-          <img
-            src={item.imageUrl}
-            alt={item.title}
-            className="component-quiz-image"
-          />
-                    <p className="trait-text">{item.title}</p>
+  if(_.isEqual(list1, selectedChampions)){
+    generateRandomNumber();
+  }
 
-      
-            </div>
-            </div>
-      ))}
-    </div>
-  );
+
+   // Handler function to update the selectedChampions state
+   const addSelectedChampions = (title) => {
+     setSelectedChampion((prevSelectedChampions) => {
+       // Check if the title already exists in the array
+       if (!prevSelectedChampions.includes(title)) {
+         return [...prevSelectedChampions, title];
+       }
+       // If the title already exists, remove it
+       const index = prevSelectedChampions.findIndex((champion) => champion == title);
+       if(index != -1){
+        const newSelectedChampions = [...prevSelectedChampions];
+        newSelectedChampions.splice(index, 1);
+        return newSelectedChampions;
+       }
+       return prevSelectedChampions;
+     });
+   };
+   return (
+     <div className="grid-container">
+
+       {set12Traits.map((item) =>{
+        const isSelected = selectedChampions.includes(item.title);
+        const selectedClassName = isSelected ? 'trait-item-selected' : ' trait-item'
+
+        return (
+         <div key={item.id} className="grid-quiz-item">
+           <div
+             className={selectedClassName}
+             onClick={() => addSelectedChampions(item.title)}
+           >
+             <img
+               src={item.imageUrl}
+               alt={item.title}
+               className="component-quiz-image"
+               onClick={() => generateRandomNumber}
+             />
+             <p className="trait-text">{item.title}</p>
+           </div>
+         </div>
+         
+        )
+})}
+       
+     </div>
+   );
 }
 
 function ShowChampions({ className }) {
