@@ -1554,7 +1554,6 @@ function Quiz({
 
   return (
     <div className={className}>
-      <h1>{numberOfCorrectTraits}</h1>
       <button className=" ButtonFire" onClick={generateRandomNumber}>
         Get Random Champion
       </button>
