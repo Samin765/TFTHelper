@@ -1434,6 +1434,10 @@ function App() {
 
   const [currentTraitSelected, setCurrentTraitSelected] = useState(null);
 
+  const [numAttempts, setNumAttempts] = useState(0);
+
+  const [numSuccessfulAttempts, setNumSuccessfulAttempts] = useState(0);
+
 
 
   const generateRandomNumber = () => {
@@ -1499,6 +1503,8 @@ function App() {
       setShakeImage = {setShakeImage}
       currentTraitSelected = {currentTraitSelected}
       setCurrentTraitSelected = {setCurrentTraitSelected}
+      setNumAttempts={setNumAttempts}
+      setNumSuccessfulAttempts={setNumSuccessfulAttempts}
       />
       <hr className="divider"></hr>
 
@@ -1627,7 +1633,9 @@ function ShowTraits({
   shakeImage,
   setShakeImage,
   currentTraitSelected,
-  setCurrentTraitSelected
+  setCurrentTraitSelected,
+  setNumAttempts,
+  setNumSuccessfulAttempts
 }) {
   const currentChampion = activeChampions[randomChampion];
   const list1 = currentChampion.traits;
