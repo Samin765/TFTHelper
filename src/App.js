@@ -5,7 +5,7 @@ import { click } from "@testing-library/user-event/dist/click";
 import React from "react";
 import TraitsQuiz from "./pages/TraitsQuiz";
 import _ from 'lodash';
-import { useEffect } from 'react';
+import { useEffect , useCallback} from 'react';
 
 
 
@@ -1430,6 +1430,10 @@ function App() {
 
   const [height, setHeight] = useState('1%'); // Start with 0% height
 
+  const [shakeImage, setShakeImage] = useState(null);
+
+  const [currentTraitSelected, setCurrentTraitSelected] = useState(null);
+
 
 
   const generateRandomNumber = () => {
@@ -1437,7 +1441,19 @@ function App() {
     setRandomChampion(number);
     setCount(count +1);
     setSelectedChampion([]);
+    setShakeImage(false);
   };
+
+  useEffect(() => {
+    if (shakeImage) {
+      const timer = setTimeout(() => {
+        setShakeImage(null);
+      }, 250); // Reset shakeImage after 1 second
+
+      return () => clearTimeout(timer);
+    }
+  }, [shakeImage]);
+
 
   function handleClick() {
     // alert('You clicked me!' );
@@ -1472,12 +1488,17 @@ function App() {
         generateRandomNumber={generateRandomNumber}  
         selectedChampions={selectedChampions}
         setSelectedChampion = {setSelectedChampion}
+        shakeImage = {shakeImage}
       />
       <ShowTraits
       randomChampion={randomChampion}
       generateRandomNumber={generateRandomNumber}
       selectedChampions={selectedChampions}
       setSelectedChampion = {setSelectedChampion}
+      shakeImage = {shakeImage}
+      setShakeImage = {setShakeImage}
+      currentTraitSelected = {currentTraitSelected}
+      setCurrentTraitSelected = {setCurrentTraitSelected}
       />
       <hr className="divider"></hr>
 
@@ -1541,6 +1562,7 @@ function Quiz({
   generateRandomNumber,
   setSelectedChampion,
   selectedChampions,
+  shakeImage
 }) {
   const currentChampion = activeChampions[randomChampion];
   const list1 = currentChampion.traits;
@@ -1551,6 +1573,8 @@ function Quiz({
 
   const percentageCorrect =
     totalTraits > 0 ? (numberOfCorrectTraits / totalTraits) * 100 : 0;
+
+  const wrongChampionSelected = shakeImage ? 'quiz-champion-image-shake': 'quiz-champion-image';
 
   return (
     <div className={className}>
@@ -1572,7 +1596,7 @@ function Quiz({
                   <img
                     src={item.imageUrl}
                     alt={item.title}
-                    className="quiz-champion-image"
+                    className= {shakeImage ? 'quiz-champion-image-shake': 'quiz-champion-image'}
                   />
                 </div>
                 <p className="quiz-champion-name">{item.title} </p>
@@ -1595,52 +1619,74 @@ function ShowComponents() {
     </div>
   );
 }
-
-function ShowTraits({randomChampion , generateRandomNumber, setSelectedChampion , selectedChampions }) {
- 
+function ShowTraits({
+  randomChampion,
+  generateRandomNumber,
+  setSelectedChampion,
+  selectedChampions,
+  shakeImage,
+  setShakeImage,
+  currentTraitSelected,
+  setCurrentTraitSelected
+}) {
   const currentChampion = activeChampions[randomChampion];
   const list1 = currentChampion.traits;
 
-  if(_.isEqual(list1, selectedChampions)){
+
+  const generateRandomNumberCallback = useCallback(() => {
     generateRandomNumber();
-  }
+  }, [generateRandomNumber]);
 
+  useEffect(() => {
+    if (_.isEqual(_.sortBy(list1), _.sortBy(selectedChampions))) {
+      setShakeImage(null);
+      generateRandomNumberCallback();
+    }
+  }, [selectedChampions, list1, generateRandomNumberCallback, setShakeImage]);
 
-   // Handler function to update the selectedChampions state
-   const addSelectedChampions = (title) => {
-     setSelectedChampion((prevSelectedChampions) => {
-       // Check if the title already exists in the array
-       if (!prevSelectedChampions.includes(title)) {
-         return [...prevSelectedChampions, title];
-       }
-       // If the title already exists, remove it
-       const index = prevSelectedChampions.findIndex((champion) => champion == title);
-       if(index != -1){
-        const newSelectedChampions = [...prevSelectedChampions];
-        newSelectedChampions.splice(index, 1);
-        return newSelectedChampions;
-       }
-       return prevSelectedChampions;
-     });
-   };
+  // Handler function to update the selectedChampions state
+  const addSelectedChampions = (title) => {
+    setCurrentTraitSelected(title);
+    setSelectedChampion((prevSelectedChampions) => {
+      const updatedSelection = [...prevSelectedChampions];
+      const isTraitInList = list1.includes(title);
+
+      if (!isTraitInList) {
+        setShakeImage(Date.now());
+        return prevSelectedChampions;
+      }
+
+      if (!prevSelectedChampions.includes(title)) {
+        updatedSelection.push(title);
+      } else {
+        // Remove the title if it already exists
+        const index = updatedSelection.indexOf(title);
+        if (index !== -1) {
+          updatedSelection.splice(index, 1);
+        }
+      }
+
+      return updatedSelection;
+    });
+  };
    return (
      <div className="grid-container">
-
        {set12Traits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
-        const selectedClassName = isSelected ? 'trait-item-selected' : ' trait-item'
+        const selectedClassName = isSelected ? 'trait-item-selected' : 'trait-item';
+        const shakeSelectedTrait = (selectedClassName === 'trait-item' && item.title === currentTraitSelected) ? 'trait-item-shake' : selectedClassName;
 
         return (
          <div key={item.id} className="grid-quiz-item">
            <div
-             className={selectedClassName}
+             className={shakeSelectedTrait}
              onClick={() => addSelectedChampions(item.title)}
            >
              <img
                src={item.imageUrl}
                alt={item.title}
-               className="component-quiz-image"
-               onClick={() => generateRandomNumber}
+               className= ' component-quiz-image'
+            
              />
              <p className="trait-text">{item.title}</p>
            </div>
