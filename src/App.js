@@ -1518,7 +1518,9 @@ function App() {
       setShakeImage = {setShakeImage}
       currentTraitSelected = {currentTraitSelected}
       setCurrentTraitSelected = {setCurrentTraitSelected}
+      numAttempts={numAttempts}
       setNumAttempts={setNumAttempts}
+      numSuccessfulAttempts={numSuccessfulAttempts}
       setNumSuccessfulAttempts={setNumSuccessfulAttempts}
       />
       <hr className="divider"></hr>
@@ -1657,7 +1659,9 @@ function ShowTraits({
   setShakeImage,
   currentTraitSelected,
   setCurrentTraitSelected,
+  numAttempts,
   setNumAttempts,
+  numSuccessfulAttempts,
   setNumSuccessfulAttempts
 }) {
   // Current Champion
@@ -1669,12 +1673,14 @@ function ShowTraits({
   const generateRandomNumberCallback = useCallback(() => {
     generateRandomNumber();
   }, [generateRandomNumber]);
+  
 
   // This is called everytime "list1" or others mentioned below are updated
   useEffect(() => {
     if (_.isEqual(_.sortBy(list1), _.sortBy(selectedChampions))) {
       setShakeImage(null);
       generateRandomNumberCallback();
+      setNumSuccessfulAttempts(prevNum => prevNum + 1);
     }
   }, [selectedChampions, list1, generateRandomNumberCallback, setShakeImage]);
 
@@ -1706,6 +1712,7 @@ function ShowTraits({
   };
    return (
      <div className="grid-container">
+     <h1>{numSuccessfulAttempts}</h1>
        {set12Traits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
         const selectedClassName = isSelected ? 'trait-item-selected' : 'trait-item';
