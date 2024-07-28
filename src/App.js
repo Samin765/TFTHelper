@@ -1526,7 +1526,9 @@ function App() {
       <hr className="divider"></hr>
 
       <h1 className="kanitfont">CHEAT SHEET</h1>
-      <ShowChampions />
+      <ShowChampions 
+      randomChampion={randomChampion}
+      />
 
       <AboutPage></AboutPage>
     </div>
@@ -1712,7 +1714,6 @@ function ShowTraits({
   };
    return (
      <div className="grid-container">
-     <h1>{numSuccessfulAttempts}</h1>
        {set12Traits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
         const selectedClassName = isSelected ? 'trait-item-selected' : 'trait-item';
@@ -1742,41 +1743,46 @@ function ShowTraits({
 }
 
 // This showcases all the champion from "activeC
-function ShowChampions({ className }) {
+function ShowChampions({ className, randomChampion }) {
   const [selectedTraits, setSelectedTraits] = useState(null);
+  const currentChampion = activeChampions[randomChampion].title;
 
   return (
     <div className={className}>
       <div className="grid-container">
-        {activeChampions.map((item) => (
-          <div key={item.id} className="grid-item">
-            <div className="tooltip-container">
-              <img
-                src={item.imageUrl}
-                alt={item.title}
-                className="champion-image"
-              />
-              <div className="tooltip">{item.title}</div>
+        {activeChampions.map((item) => {
+
+          const highlightChamp = currentChampion === item.title ? 'grid-item-highlight' : 'grid-item'
+          return (
+            <div key={item.id} className={highlightChamp}>
+              <div className="tooltip-container">
+                <img
+                  src={item.imageUrl}
+                  alt={item.title}
+                  className="champion-image"
+                />
+                <div className="tooltip">{item.title}</div>
+              </div>
+              <div className="component-container">
+                {item.traits.map((traitTitle) => {
+                  const trait = set12Traits.find(
+                    (trait) => trait.title === traitTitle
+                  );
+                  return (
+                    <div key={traitTitle} className="tooltip-container">
+                      <img
+                        src={trait.imageUrl}
+                        alt={trait.title}
+                        className="component-image"
+                      />
+                      <div className="tooltip">{trait.title}</div>
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div className="component-container">
-              {item.traits.map((traitTitle) => {
-                const trait = set12Traits.find(
-                  (trait) => trait.title === traitTitle
-                );
-                return (
-                  <div key={traitTitle} className="tooltip-container">
-                    <img
-                      src={trait.imageUrl}
-                      alt={trait.title}
-                      className="component-image"
-                    />
-                    <div className="tooltip">{trait.title}</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </div>
   );

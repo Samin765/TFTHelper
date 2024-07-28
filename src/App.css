@@ -303,7 +303,22 @@
 }
 
 .grid-item {
+  margin-top: 20px;
   text-align: center; /* Center align content */
+  
+  
+}
+
+.grid-item-highlight {
+  margin-top: 20px;
+  padding-bottom: 20px;
+  padding-top: 20px;
+
+  text-align: center; /* Center align content */
+
+  background-color: rgba(255, 255, 255, 0.2); 
+  border: 2px solid rgb(167, 187, 148); /* 2px wide solid border with red color */
+
   
   
 }
@@ -380,6 +395,8 @@
 
 }
 
+
+
 .champion-image:hover {
   transform: translateY(-2px); /* Slight lift on hover */
 }
@@ -402,6 +419,9 @@
   transition: transform 0.3s ease; /* Optional: Smooth transition */
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.67); /* Subtle shadow for depth */
   display:flex;
+  border-bottom: 2px solid rgb(28, 29, 27); /* 2px wide solid 
+  border-right: 2px solid rgb(47, 48, 45); /* 2px wide solid  */
+
 
 }
 
@@ -532,6 +552,8 @@
   align-items: center;
   padding: 10px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 2.97); /* Subtle shadow for depth */
+  border: 2px solid rgb(156, 214, 101); /* 2px wide solid border with red color */
+
 }
 
 .quiz-trait-item{
