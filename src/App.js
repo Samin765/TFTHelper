@@ -1419,31 +1419,40 @@ activeChampions.forEach((champion) => {
   champion.traits = championTraits[champion.title] || [];
 });
 
+// MAIN APP
 function App() {
   const [count, setCount] = useState(0);
 
+  // Holds what champion/index we choose in "set12Traits" List
   const number = Math.floor(Math.random() * activeChampions.length);
 
+  // Holds the title of the champion we display
   const [randomChampion, setRandomChampion] = useState(number);
 
+  // Holds what traits the user has selected for the current champion
   const [selectedChampions, setSelectedChampion] = useState([]);
 
+  // Holds the Y heigh for how much the user has scrolled
+  // This is for the scrollbar animation
   const [height, setHeight] = useState('1%'); // Start with 0% height
 
+  // Holds the state wether a image should shake or not
   const [shakeImage, setShakeImage] = useState(null);
 
+  // Holds the most reason trait a user has selected
   const [currentTraitSelected, setCurrentTraitSelected] = useState(null);
 
 
-
+  // Generate random number within for the selection of a random champion
   const generateRandomNumber = () => {
     const number = Math.floor(Math.random() * activeChampions.length);
     setRandomChampion(number);
     setCount(count +1);
     setSelectedChampion([]);
-    setShakeImage(false);
+    setShakeImage(null);
   };
 
+  // A timer to reset the image shaking
   useEffect(() => {
     if (shakeImage) {
       const timer = setTimeout(() => {
@@ -1459,6 +1468,8 @@ function App() {
     // alert('You clicked me!' );
     setCount(count + 1);
   }
+
+  // Scrollbar Animation
   let progress = document.getElementById('progressbar');
   let totalHeigth = document.body.scrollHeight - window.innerHeight;
   window.onscroll = function(){
@@ -1468,6 +1479,8 @@ function App() {
 
   }
 
+
+  // TEST code ignore this
   let content;
   let isLoggedIn = true;
   if (isLoggedIn) {
@@ -1478,6 +1491,7 @@ function App() {
 
   return (
     <div className="App">
+      
       <div className="background"></div>
       <div className="progressbar"
       style={{ height: height }}></div>
@@ -1486,7 +1500,7 @@ function App() {
       <Quiz 
         randomChampion={randomChampion}
         generateRandomNumber={generateRandomNumber}  
-        selectedChampions={selectedChampions}
+        selectedChampions = {selectedChampions}
         setSelectedChampion = {setSelectedChampion}
         shakeImage = {shakeImage}
       />
@@ -1533,6 +1547,7 @@ function ProgressBar () {
 
 
 function AboutPage() {
+  // This is the about page, showcasing general information 
   return (
     <div className="about-container">
       <h1>UNDER DEVELOPMENT</h1>
@@ -1564,13 +1579,18 @@ function Quiz({
   selectedChampions,
   shakeImage
 }) {
+
+  // Current Champion
   const currentChampion = activeChampions[randomChampion];
+  // Correct traits for the current champion
   const list1 = currentChampion.traits;
 
   const correctTraits = _.intersection(list1, selectedChampions);
   const numberOfCorrectTraits = correctTraits.length;
   const totalTraits = list1.length;
 
+  // Current not being used but could be used to showcase how many traits a user currently have 
+  // guessed correctly
   const percentageCorrect =
     totalTraits > 0 ? (numberOfCorrectTraits / totalTraits) * 100 : 0;
 
@@ -1619,6 +1639,8 @@ function ShowComponents() {
     </div>
   );
 }
+
+// This function shows all the traits and handles the trait functionality
 function ShowTraits({
   randomChampion,
   generateRandomNumber,
@@ -1629,14 +1651,17 @@ function ShowTraits({
   currentTraitSelected,
   setCurrentTraitSelected
 }) {
+  // Current Champion
   const currentChampion = activeChampions[randomChampion];
+  // Correct traits for the current champion
   const list1 = currentChampion.traits;
 
-
+// Saves a random number so we dont run into sync issues
   const generateRandomNumberCallback = useCallback(() => {
     generateRandomNumber();
   }, [generateRandomNumber]);
 
+  // This is called everytime "list1" or others mentioned below are updated
   useEffect(() => {
     if (_.isEqual(_.sortBy(list1), _.sortBy(selectedChampions))) {
       setShakeImage(null);
@@ -1651,6 +1676,7 @@ function ShowTraits({
       const updatedSelection = [...prevSelectedChampions];
       const isTraitInList = list1.includes(title);
 
+      // if the selected trait is not in the list we don't do anything and shake the image
       if (!isTraitInList) {
         setShakeImage(Date.now());
         return prevSelectedChampions;
@@ -1699,6 +1725,7 @@ function ShowTraits({
    );
 }
 
+// This showcases all the champion from "activeC
 function ShowChampions({ className }) {
   const [selectedTraits, setSelectedTraits] = useState(null);
 
