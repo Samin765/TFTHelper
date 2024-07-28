@@ -1446,6 +1446,7 @@ function App() {
 
   const [numSuccessfulAttempts, setNumSuccessfulAttempts] = useState(0);
 
+  const [randomState , setRandomState] = useState(0);
 
   // Generate random number within for the selection of a random champion
   const generateRandomNumber = () => {
