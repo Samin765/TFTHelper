@@ -5,7 +5,7 @@ import { click } from "@testing-library/user-event/dist/click";
 import React from "react";
 import TraitsQuiz from "./pages/TraitsQuiz";
 import _ from 'lodash';
-import { useEffect , useCallback} from 'react';
+import { useEffect , useCallback, useRef} from 'react';
 
 
 
@@ -1425,7 +1425,7 @@ function App() {
 
   // Holds what champion/index we choose in "set12Traits" List
   const number = Math.floor(Math.random() * activeChampions.length);
-
+  
   // Holds the title of the champion we display
   const [randomChampion, setRandomChampion] = useState(number);
 
@@ -1444,7 +1444,11 @@ function App() {
 
   const [numAttempts, setNumAttempts] = useState(0);
 
+  const [numSucessfulSelects, setNumSuccesfulSelects] = useState(0);
+
   const [numSuccessfulAttempts, setNumSuccessfulAttempts] = useState(0);
+
+  const [numCorrectTraits, setNumCorrectTraits] = useState(activeChampions[number].traits.length);
 
   const [randomState , setRandomState] = useState(0);
 
@@ -1455,6 +1459,7 @@ function App() {
     setCount(count +1);
     setSelectedChampion([]);
     setShakeImage(null);
+    setNumCorrectTraits(prevTraits => prevTraits + activeChampions[number].traits.length);
   };
 
   // A timer to reset the image shaking
@@ -1508,6 +1513,14 @@ function App() {
         selectedChampions = {selectedChampions}
         setSelectedChampion = {setSelectedChampion}
         shakeImage = {shakeImage}
+        numAttempts={numAttempts}
+        setNumAttempts={setNumAttempts}
+        numSuccessfulAttempts={numSuccessfulAttempts}
+        setNumSuccessfulAttempts={setNumSuccessfulAttempts}
+        numCorrectTraits={numCorrectTraits}
+        setNumCorrectTraits={setNumCorrectTraits}
+        numSucessfulSelects = {numSucessfulSelects}
+        setNumSuccesfulSelects = {setNumSuccesfulSelects}
       />
       <ShowTraits
       randomChampion={randomChampion}
@@ -1522,6 +1535,10 @@ function App() {
       setNumAttempts={setNumAttempts}
       numSuccessfulAttempts={numSuccessfulAttempts}
       setNumSuccessfulAttempts={setNumSuccessfulAttempts}
+      numCorrectTraits={numCorrectTraits}
+      setNumCorrectTraits={setNumCorrectTraits}
+      numSucessfulSelects = {numSucessfulSelects}
+      setNumSuccesfulSelects = {setNumSuccesfulSelects}
       />
       <hr className="divider"></hr>
 
@@ -1588,7 +1605,15 @@ function Quiz({
   generateRandomNumber,
   setSelectedChampion,
   selectedChampions,
-  shakeImage
+  shakeImage,
+  numAttempts,
+  setNumAttempts,
+  numSuccessfulAttempts,
+  setNumSuccessfulAttempts,
+  numCorrectTraits,
+  setNumCorrectTraits,
+  numSucessfulSelects,
+  setNumSuccesfulSelects
 }) {
 
   // Current Champion
@@ -1607,23 +1632,42 @@ function Quiz({
 
   const wrongChampionSelected = shakeImage ? 'quiz-champion-image-shake': 'quiz-champion-image';
 
+  const accuracy = numAttempts < 1 ? 100 : (((numSucessfulSelects/2) / (numAttempts/2)) * 100).toFixed(0);
+
+
+
+  const restartQuiz= () => {
+    setNumCorrectTraits(0);
+    generateRandomNumber();
+    setNumAttempts(0);
+    setNumSuccessfulAttempts(0);
+    setNumSuccesfulSelects(0);
+  };
   return (
     <div className={className}>
-      <button className=" ButtonFire" onClick={generateRandomNumber}>
-        Get Random Champion
+      <button className=" ButtonFire" onClick={restartQuiz}>
+        Restart
       </button>
+
       <div className="">
+      <p id = "accuracy" className="accuracy-text">Accuracy: {accuracy}%</p>
+      <p id = "success" className="accuracy-text">Correct: {numSuccessfulAttempts}</p>
+
         {activeChampions
           .slice(randomChampion, randomChampion + 1)
           .map((item) => (
+            
             <div key={item.id} className="quiz-champion-image-container">
+
               <div className="quiz-trait-item">
               <div
+              
                   className="quiz-champion-image-wrapper"
                   style={{ 
                     '--percentage-correct': `${percentageCorrect}%` 
                   }}
                 >
+
                   <img
                     src={item.imageUrl}
                     alt={item.title}
@@ -1631,7 +1675,9 @@ function Quiz({
                   />
                 </div>
                 <p className="quiz-champion-name">{item.title} </p>
+
               </div>
+
             </div>
           ))}
       </div>
@@ -1664,12 +1710,19 @@ function ShowTraits({
   numAttempts,
   setNumAttempts,
   numSuccessfulAttempts,
-  setNumSuccessfulAttempts
+  setNumSuccessfulAttempts,
+  numCorrectTraits,
+  setNumCorrectTraits,
+  numSucessfulSelects,
+  setNumSuccesfulSelects
 }) {
   // Current Champion
   const currentChampion = activeChampions[randomChampion];
   // Correct traits for the current champion
   const list1 = currentChampion.traits;
+
+  const debounceRef = useRef(false);
+
 
 // Saves a random number so we dont run into sync issues
   const generateRandomNumberCallback = useCallback(() => {
@@ -1682,12 +1735,17 @@ function ShowTraits({
     if (_.isEqual(_.sortBy(list1), _.sortBy(selectedChampions))) {
       setShakeImage(null);
       generateRandomNumberCallback();
+
       setNumSuccessfulAttempts(prevNum => prevNum + 1);
     }
   }, [selectedChampions, list1, generateRandomNumberCallback, setShakeImage]);
 
   // Handler function to update the selectedChampions state
   const addSelectedChampions = (title) => {
+
+    if (debounceRef.current) return;
+    debounceRef.current = true;
+
     setCurrentTraitSelected(title);
     setSelectedChampion((prevSelectedChampions) => {
       const updatedSelection = [...prevSelectedChampions];
@@ -1695,25 +1753,26 @@ function ShowTraits({
 
       // if the selected trait is not in the list we don't do anything and shake the image
       if (!isTraitInList) {
+        setNumAttempts(prevNum => prevNum + 1);
         setShakeImage(Date.now());
         return prevSelectedChampions;
       }
 
       if (!prevSelectedChampions.includes(title)) {
+        setNumAttempts(prevNum => prevNum + 1);
+        setNumSuccesfulSelects(num => num + 1);
         updatedSelection.push(title);
-      } else {
-        // Remove the title if it already exists
-        const index = updatedSelection.indexOf(title);
-        if (index !== -1) {
-          updatedSelection.splice(index, 1);
-        }
-      }
-
+      } 
       return updatedSelection;
     });
+
+    setTimeout(() => {
+      debounceRef.current = false;
+    }, 1);
   };
    return (
      <div className="grid-container">
+
        {set12Traits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
         const selectedClassName = isSelected ? 'trait-item-selected' : 'trait-item';
