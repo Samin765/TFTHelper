@@ -1632,7 +1632,7 @@ function Quiz({
 
   const wrongChampionSelected = shakeImage ? 'quiz-champion-image-shake': 'quiz-champion-image';
 
-  const accuracy = numAttempts < 1 ? 100 : (((numSucessfulSelects/2) / (numAttempts/2)) * 100).toFixed(0);
+  const accuracy = numAttempts < 1 ? "-" : (((numSucessfulSelects/2) / (numAttempts/2)) * 100).toFixed(0);
 
 
 
