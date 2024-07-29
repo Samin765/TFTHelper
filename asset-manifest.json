@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/www.tfthelpers.com/static/css/main.a5a35a0c.css",
-    "main.js": "/www.tfthelpers.com/static/js/main.f5822278.js",
-    "static/js/453.68693753.chunk.js": "/www.tfthelpers.com/static/js/453.68693753.chunk.js",
-    "static/media/logo.svg": "/www.tfthelpers.com/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
-    "index.html": "/www.tfthelpers.com/index.html",
-    "main.a5a35a0c.css.map": "/www.tfthelpers.com/static/css/main.a5a35a0c.css.map",
-    "main.f5822278.js.map": "/www.tfthelpers.com/static/js/main.f5822278.js.map",
-    "453.68693753.chunk.js.map": "/www.tfthelpers.com/static/js/453.68693753.chunk.js.map"
+    "main.css": "www.tfthelpers.com/static/css/main.a5a35a0c.css",
+    "main.js": "www.tfthelpers.com/static/js/main.f5822278.js",
+    "static/js/453.68693753.chunk.js": "www.tfthelpers.com/static/js/453.68693753.chunk.js",
+    "static/media/logo.svg": "www.tfthelpers.com/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "www.tfthelpers.com/index.html",
+    "main.a5a35a0c.css.map": "www.tfthelpers.com/static/css/main.a5a35a0c.css.map",
+    "main.f5822278.js.map": "www.tfthelpers.com/static/js/main.f5822278.js.map",
+    "453.68693753.chunk.js.map": "www.tfthelpers.com/static/js/453.68693753.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a5a35a0c.css",
