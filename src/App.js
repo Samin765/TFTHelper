@@ -1452,6 +1452,20 @@ function App() {
 
   const [randomState , setRandomState] = useState(0);
 
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
+
+  const handleResize = () => {
+    setIsMobile(window.innerWidth <= 800);
+  };
+
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
+
   // Generate random number within for the selection of a random champion
   const generateRandomNumber = () => {
     const number = Math.floor(Math.random() * activeChampions.length);
@@ -1521,6 +1535,7 @@ function App() {
         setNumCorrectTraits={setNumCorrectTraits}
         numSucessfulSelects = {numSucessfulSelects}
         setNumSuccesfulSelects = {setNumSuccesfulSelects}
+        isMobile = {isMobile}
       />
       <ShowTraits
       randomChampion={randomChampion}
@@ -1539,12 +1554,14 @@ function App() {
       setNumCorrectTraits={setNumCorrectTraits}
       numSucessfulSelects = {numSucessfulSelects}
       setNumSuccesfulSelects = {setNumSuccesfulSelects}
+      isMobile = {isMobile}
       />
       <hr className="divider"></hr>
 
       <h1 className="kanitfont">CHEAT SHEET</h1>
       <ShowChampions 
       randomChampion={randomChampion}
+      isMobile = {isMobile}
       />
 
       <AboutPage></AboutPage>
@@ -1613,7 +1630,8 @@ function Quiz({
   numCorrectTraits,
   setNumCorrectTraits,
   numSucessfulSelects,
-  setNumSuccesfulSelects
+  setNumSuccesfulSelects,
+  isMobile
 }) {
 
   // Current Champion
@@ -1650,9 +1668,10 @@ function Quiz({
       </button>
 
       <div className="">
+        <div className= "accuracy-text-container">
       <p id = "accuracy" className="accuracy-text">Accuracy: {accuracy}%</p>
-      <p id = "success" className="accuracy-text">Correct: {numSuccessfulAttempts}</p>
-
+      {!isMobile && <p id="success" className="accuracy-text">Correct: {numSuccessfulAttempts}</p>}
+      </div>
         {activeChampions
           .slice(randomChampion, randomChampion + 1)
           .map((item) => (
@@ -1714,7 +1733,8 @@ function ShowTraits({
   numCorrectTraits,
   setNumCorrectTraits,
   numSucessfulSelects,
-  setNumSuccesfulSelects
+  setNumSuccesfulSelects,
+  isMobile
 }) {
   // Current Champion
   const currentChampion = activeChampions[randomChampion];
@@ -1723,7 +1743,7 @@ function ShowTraits({
 
   const debounceRef = useRef(false);
 
-
+  const sortedTraits = set12Traits.sort((a,b) => a.title.localeCompare(b.title));
 // Saves a random number so we dont run into sync issues
   const generateRandomNumberCallback = useCallback(() => {
     generateRandomNumber();
@@ -1770,8 +1790,10 @@ function ShowTraits({
       debounceRef.current = false;
     }, 1);
   };
+
+  const gridTraitsContainer = isMobile ? 'grid-traits-container-mobile' : 'grid-traits-container';
    return (
-     <div className="grid-container">
+     <div className={gridTraitsContainer}>
 
        {set12Traits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
@@ -1802,13 +1824,15 @@ function ShowTraits({
 }
 
 // This showcases all the champion from "activeC
-function ShowChampions({ className, randomChampion }) {
+function ShowChampions({ className, randomChampion, isMobile }) {
   const [selectedTraits, setSelectedTraits] = useState(null);
   const currentChampion = activeChampions[randomChampion].title;
 
+  const gridContainer = isMobile ? 'grid-container-mobile' : 'grid-container';
+
   return (
     <div className={className}>
-      <div className="grid-container">
+      <div className={gridContainer}>
         {activeChampions.map((item) => {
 
           const highlightChamp = currentChampion === item.title ? 'grid-item-highlight' : 'grid-item'
