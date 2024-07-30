@@ -1450,6 +1450,9 @@ function App() {
 
   const [numCorrectTraits, setNumCorrectTraits] = useState(activeChampions[number].traits.length);
 
+  const [sampledTraits, setSampledTraits] = useState([]);
+
+
   const [randomState , setRandomState] = useState(0);
 
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 800);
@@ -1555,6 +1558,8 @@ function App() {
       numSucessfulSelects = {numSucessfulSelects}
       setNumSuccesfulSelects = {setNumSuccesfulSelects}
       isMobile = {isMobile}
+      sampledTraits = {sampledTraits}
+      setSampledTraits = {setSampledTraits}
       />
       <hr className="divider"></hr>
 
@@ -1609,7 +1614,7 @@ function AboutPage() {
       </p>
       <p>
         {" "}
-        Feel free to reach out to samin@3138@gmail.com for any suggestions or
+        Feel free to reach out to samin3138@gmail.com for any suggestions or
         improvements
       </p>
     </div>
@@ -1652,6 +1657,7 @@ function Quiz({
 
   const accuracy = numAttempts < 1 ? "-" : (((numSucessfulSelects/2) / (numAttempts/2)) * 100).toFixed(0);
 
+  const smallFont = isMobile ? 'accuracy-text-mobile' : 'accuracy-text';
 
 
   const restartQuiz= () => {
@@ -1669,8 +1675,8 @@ function Quiz({
 
       <div className="">
         <div className= "accuracy-text-container">
-      <p id = "accuracy" className="accuracy-text">Accuracy: {accuracy}%</p>
-      {!isMobile && <p id="success" className="accuracy-text">Correct: {numSuccessfulAttempts}</p>}
+      <p id = "accuracy" className={smallFont}>Accuracy: {accuracy}%</p>
+      {!isMobile && <p id="success" className={smallFont}>Correct: {numSuccessfulAttempts}</p>}
       </div>
         {activeChampions
           .slice(randomChampion, randomChampion + 1)
@@ -1734,16 +1740,44 @@ function ShowTraits({
   setNumCorrectTraits,
   numSucessfulSelects,
   setNumSuccesfulSelects,
-  isMobile
+  isMobile,
+  sampledTraits,
+  setSampledTraits
 }) {
   // Current Champion
   const currentChampion = activeChampions[randomChampion];
   // Correct traits for the current champion
   const list1 = currentChampion.traits;
+  const correctTraits = _.intersection(list1, selectedChampions);
+
+  useEffect(() => {
+    if (!isMobile) {
+      setSampledTraits(set12Traits);
+      return;}
+
+    // Get the correct traits titles
+    const list1 = currentChampion.traits;
+    const correctTraitsTitles = _.intersection(list1, selectedChampions);
+
+    // Find elements in set12Traits that match the correctTraitsTitles
+    const correctTraitsElements = set12Traits.filter(trait => list1.includes(trait.title));
+
+    // Sample the remaining required number of elements from set12Traits
+    const remainingSampleSize = 12 - correctTraitsElements.length;
+    const randomElements = _.sampleSize(_.differenceBy(set12Traits, correctTraitsElements, 'title'), remainingSampleSize);
+
+    // Combine and remove duplicates
+    let combinedList = [...correctTraitsElements, ...randomElements];
+    combinedList = _.uniqBy(combinedList, 'title'); // Ensure there are no duplicates
+    combinedList.sort((a,b) => a.title.localeCompare(b.title));
+
+    // Set the state
+    setSampledTraits(combinedList);
+  }, [set12Traits, currentChampion]);
+
 
   const debounceRef = useRef(false);
 
-  const sortedTraits = set12Traits.sort((a,b) => a.title.localeCompare(b.title));
 // Saves a random number so we dont run into sync issues
   const generateRandomNumberCallback = useCallback(() => {
     generateRandomNumber();
@@ -1795,7 +1829,7 @@ function ShowTraits({
    return (
      <div className={gridTraitsContainer}>
 
-       {set12Traits.map((item) =>{
+       {sampledTraits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
         const selectedClassName = isSelected ? 'trait-item-selected' : 'trait-item';
         const shakeSelectedTrait = (selectedClassName === 'trait-item' && item.title === currentTraitSelected) ? 'trait-item-shake' : selectedClassName;
