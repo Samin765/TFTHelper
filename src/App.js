@@ -1816,13 +1816,15 @@ function ShowTraits({
         setNumAttempts(prevNum => prevNum + 1);
         setNumSuccesfulSelects(num => num + 1);
         updatedSelection.push(title);
+        // Clear shakeImage for correct selection
+        setShakeImage(null);
       } 
       return updatedSelection;
     });
 
     setTimeout(() => {
       debounceRef.current = false;
-    }, 1);
+    }, 250);
   };
 
   const gridTraitsContainer = isMobile ? 'grid-traits-container-mobile' : 'grid-traits-container';
@@ -1832,8 +1834,9 @@ function ShowTraits({
        {sampledTraits.map((item) =>{
         const isSelected = selectedChampions.includes(item.title);
         const selectedClassName = isSelected ? 'trait-item-selected' : 'trait-item';
-        const shakeSelectedTrait = (selectedClassName === 'trait-item' && item.title === currentTraitSelected) ? 'trait-item-shake' : selectedClassName;
-
+        //const shakeSelectedTrait = (selectedClassName === 'trait-item' && item.title === currentTraitSelected) ? 'trait-item-shake' : selectedClassName;
+        // Apply shaking effect conditionally
+        const shakeSelectedTrait = !isSelected && item.title === currentTraitSelected && shakeImage ? "trait-item-shake" : selectedClassName;
         return (
          <div key={item.id} className="grid-quiz-item">
            <div
