@@ -1752,6 +1752,8 @@ function ShowTraits({
 
   useEffect(() => {
     if (!isMobile) {
+      set12Traits.sort((a,b) => a.title.localeCompare(b.title));
+
       setSampledTraits(set12Traits);
       return;}
 
