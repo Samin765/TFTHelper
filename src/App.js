@@ -1787,7 +1787,7 @@ function ShowTraits({
   // This is called everytime "list1" or others mentioned below are updated
   useEffect(() => {
     if (_.isEqual(_.sortBy(list1), _.sortBy(selectedChampions))) {
-      //setShakeImage(null);
+      setShakeImage(null);
       generateRandomNumberCallback();
 
       setNumSuccessfulAttempts(prevNum => prevNum + 1);
