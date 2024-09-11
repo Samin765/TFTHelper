@@ -1,6 +1,6 @@
 # TFT Helper
 
-TFT Helper is a project designed to assist new players in learning about the various traits each character possesses, as well as the different combinations required to create specific items.
+TFT Helper is a project designed to assist new players in learning about the various traits each character possesses, as well as the different combinations required to create specific items in Team Fight Tactics (TFT).
 
 ## Features
 - **Character Traits**: Explore and understand the traits of each character in Teamfight Tactics (TFT).
